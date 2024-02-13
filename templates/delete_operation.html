@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Operations</title>
+    <style>
+/* styles.css */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 5px;
+}
+
+select,
+input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type="submit"] {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+    <h2>Welcome to the delete operation</h2>
+    <form action="/delete_operation_details" method="post">
+        <select name="delete_drop_operation" id="delete_drop_operation">
+            <option value="delete_operation" selected>DELETE</option>
+            <option value="drop_operation" id = 'drop_operation'>DROP</option>
+        </select>
+        <div id = "delete">
+        <label for="table">Select Table:</label>
+            <select name="table" id="table">
+                {% for table in tables %}
+                <option value="{{table}}">{{ table }}</option>
+                {% endfor %}
+            </select>
+            <br>
+        <label for="text">Where</label><br>
+        <input type="text" name="where" id="where"><br>
+       
+        </div>
+        <div id="drop">
+            <label for="text">Select to Drop</label>
+            <select name="drop_operation_type" id="drop_operation_type">
+                <option value="database_drop">Database</option>
+                <option value="table_drop">Table</option>
+                <option value="column_drop">Column</option>
+            </select>
+            <div id="database">
+                <label for="text">Enter Database to Drop</label>
+                <input type="text" name="database_name" id="database_name">
+            </div>
+            <div id="table_drop_div">
+            <label for="table_name">Choose Table to Drop</label>
+            <select name="table_name" id="table_name">
+                {% for table in tables %}
+                <option value="{{table}}">{{ table }}</option>
+                {% endfor %}
+            </select>
+            </div>
+            <div id='column'>
+            <label for="text">Enter Column name to Drop</label>
+            <input type="text" name="column_name" id="column_name">
+            </div>
+        </div>
+        <input type="submit" value="Submit">
+    </form>
+</div>
+    <script>
+        let blockElement = 'drop'
+        let defaultElement = document.getElementById(blockElement)
+        defaultElement.style.display = 'none';
+        document.getElementById('delete_drop_operation').addEventListener('change', function() {
+            var selectedValue = this.value;
+            var deleteDiv = document.getElementById('delete');
+            var dropDiv = document.getElementById('drop');
+
+            if (selectedValue === 'delete_operation') {
+                deleteDiv.style.display = 'block';
+                dropDiv.style.display = 'none';
+            } else if (selectedValue === 'drop_operation') {
+                deleteDiv.style.display = 'none';
+                dropDiv.style.display = 'block';
+            }
+        });
+        var databaseDiv = document.getElementById('database');
+        var tableDiv = document.getElementById('table_drop_div');
+        var columnDiv = document.getElementById('column');
+    
+        databaseDiv.style.display = 'block';
+        tableDiv.style.display = 'none';
+        columnDiv.style.display = 'none';
+
+        document.getElementById('drop_operation_type').addEventListener('change', function() {
+            var selectedValue = this.value;
+            
+
+            if (selectedValue === 'database_drop') {
+                databaseDiv.style.display = 'block';
+                tableDiv.style.display = 'none';
+                columnDiv.style.display = 'none';
+            } else if (selectedValue === 'table_drop') {
+                databaseDiv.style.display = 'none';
+                tableDiv.style.display = 'block';
+                columnDiv.style.display = 'none';
+            } else if (selectedValue === 'column_drop') {
+                databaseDiv.style.display = 'none';
+                tableDiv.style.display = 'block';
+                columnDiv.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>

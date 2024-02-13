@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insert Operations</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        select, input[type="file"], input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .additional-input {
+            display: none;
+        }
+
+        #multiple-values-container {
+            display: flex;
+            align-items: center;
+        }
+
+        #multiple-values-container input[type="text"] {
+            flex: 1;
+            margin-right: 5px;
+        }
+
+        #add-value {
+            padding: 8px;
+            border: none;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        #add-value:hover {
+            background-color: #0056b3;
+        }
+
+        button[type="submit"] {
+            padding: 10px 20px;
+            border: none;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Welcome to the Insert operation</h2>
+        <form action="insertion_operations_detail" method="post" id="insertForm">
+            <label for="insert_operation">Enter the Insertion Operation you want to perform</label>
+            <select name="insert_operation" id="insert_operation">
+                <option value="single_insert_operation" selected>Insert Single</option>
+                <option value="multiple_insert_operation">Insert Multiple</option>
+                <!-- <option value="csv_insert_operation">Insert From CSV</option> -->
+            </select>
+            <br>
+            
+            <label for="table">Select Table:</label>
+            <select name="table" id="table">
+                {% for table in tables %}
+                <option value="{{table}}">{{ table }}</option>
+                {% endfor %}
+            </select>
+            <br>
+        
+            <!-- Single input line -->
+            <div class="additional-input" id="single-insert-input">
+                <label for="single_insert_value">Enter Value:</label>
+                <input type="text" name="single_insert_value" id="single_insert_value">
+                <button type="submit">Submit</button>
+            </div>
+
+            <!-- Multiple input lines with a plus icon -->
+            <div class="additional-input" id="multiple-insert-input">
+                <label for="multiple_insert_values">Enter Values:</label>
+                <div id="multiple-values-container">
+                    <input type="text" name="multiple_insert_values[]" class="multiple-values">
+                    <button type="button" id="add-value">+</button> 
+                </div>
+                <button type="submit">Submit</button>
+            </div>
+
+            <!-- File upload for CSV option -->
+            <div class="additional-input" id="csv-upload-input">
+                <label for="csv_file">Upload CSV File:</label>
+                <input type="file" name="csv_file" id="csv_file">
+                <button onclick="handleFile()">Upload</button>
+            </div>
+
+            
+        </form>
+    </div>
+
+    <script>
+        const insertOperationSelect = document.getElementById('insert_operation');
+        console.log(insertOperationSelect)
+        
+        const additionalInputs = document.querySelectorAll('.additional-input');
+        let selectedInput ="single-insert-input" ;
+        let defaultElement = document.getElementById(selectedInput)
+        defaultElement.style.display = 'block';
+           
+
+        insertOperationSelect.addEventListener('change', function() {
+        // Hide all additional inputs initially
+        additionalInputs.forEach(input => input.style.display = 'none');
+          
+
+
+
+
+        // Show only the input matching the selected value
+        const selectedInputId = `${this.value}`;
+            if(selectedInputId=="single_insert_operation"){
+                selectedInput = "single-insert-input"
+            }
+            else if(selectedInputId=="multiple_insert_operation"){
+                selectedInput = "multiple-insert-input"
+            }
+            else{
+                selectedInput = "csv-upload-input"
+            }
+
+
+
+
+
+        console.log(selectedInputId)
+        console.log(selectedInput)  
+        
+        if (selectedInput) {
+            console.log("selectedInput:", selectedInput)
+            let element = document.getElementById(selectedInput)
+
+
+
+
+            element.style.display = 'block';
+            }
+        
+        });
+
+
+        const addValueButton = document.getElementById('add-value');
+        const multipleValuesContainer = document.getElementById('multiple-values-container');
+
+        if (addValueButton) {
+            addValueButton.addEventListener('click', function() {
+                const newInput = document.createElement('input');
+                newInput.type = 'text';
+                newInput.name = 'multiple_insert_values[]';
+                newInput.classList.add('multiple-values');
+                multipleValuesContainer.appendChild(newInput);
+            });
+        }
+
+        function handleFile() {
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const contents = e.target.result;
+                    // Send contents to backend (e.g., using fetch or XMLHttpRequest)
+                    console.log(contents); // Just logging for demonstration
+                };
+                reader.readAsText(file);
+            } else {
+                alert('Please select a file to upload.');
+            }
+        }
+    </script>
+</body>
+</html>

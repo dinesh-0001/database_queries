@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create a New Table</title>
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f9fa;
+        margin: 0;
+        padding: 20px;
+        text-align: center;
+    }
+    
+    h2 {
+        color: #333;
+    }
+    
+    form {
+        max-width: 400px;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    label {
+        display: block;
+        margin-bottom: 10px;
+        color: #333;
+    }
+    
+    input[type="text"],
+    input[type="submit"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ced4da;
+        border-radius: 3px;
+        box-sizing: border-box;
+    }
+    
+    input[type="submit"] {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+    
+    input[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+    
+   
+    
+        </style>
+</head>
+<body>
+    <h2>Create a Table to Database</h2>
+    <form action="insert_new_table", method="post">
+        <label for="text">Enter the Database Name</label>
+        <input type="text" name="database_name" id="database_name" required>
+        <label for="table_name">Enter the Table name you wish to add</label>
+        <input type="text" id="table_name" name="table_name" required>
+        <label for="text">Enter the Schema of Table here</label>
+        <input type="text" id="schema" name="schema" required>
+        <input type="submit" value="Click to Insert">
+    </form>
+
+</body>
+</html>

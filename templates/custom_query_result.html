@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Query Result</title>
+</head>
+<body>
+    {% if query_result and query_result|length > 0 %}
+    <h2>Query Result:</h2>
+    <table border="1">
+        <tr>
+            {% if query_result[0] is mapping %}
+                {# Assuming query_result[0] is a dictionary-like object (a mapping) #}
+                {% for key in query_result[0].keys() %}
+                    <th>{{ key }}</th>
+                {% endfor %}
+            {% elif query_result[0] is iterable %}
+                {# Assuming query_result[0] is an iterable (e.g., tuple) #}
+                {% for item in query_result[0] %}
+                    <th>{{ loop.index }}</th>
+                {% endfor %}
+            {% endif %}
+        </tr>
+        {% for row in query_result %}
+            <tr>
+                {% if row is mapping %}
+                    {# Assuming each row is a dictionary-like object (a mapping) #}
+                    {% for value in row.values() %}
+                        <td>{{ value }}</td>
+                    {% endfor %}
+                {% elif row is iterable %}
+                    {# Assuming each row is an iterable (e.g., tuple) #}
+                    {% for value in row %}
+                        <td>{{ value }}</td>
+                    {% endfor %}
+                {% endif %}
+            </tr>
+        {% endfor %}
+    </table>
+{% else %}
+    <p>No query results available.</p>
+{% endif %}
+
+
+    <br>
+</body>
+</html>

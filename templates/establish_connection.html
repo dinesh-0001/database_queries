@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connection Established with MySQL</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h2, h3 {
+            color: #333;
+        }
+
+        form {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        label {
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        select, input[type="submit"] {
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            box-sizing: border-box;
+            width: 300px;
+            max-width: 100%;
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h2>Connection Established with MySQL Successfully</h2>
+    <h3>Choose the operation you want to perform</h3>
+    <form action="/operations_mysql", method="POST">
+        <label for="operation">Choose operation</label>
+        <select name="operation" id="operation">
+            <option value="show_dbs" selected>Show Databases</option>
+            <option value="create_databases">Create New Database</option>
+            <option value="create_table">Create New Table</option>
+            <option value="predefined_queries">Go to Predefined query</option>
+            <option value="custom_query">Write Custom query</option>
+        </select>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>

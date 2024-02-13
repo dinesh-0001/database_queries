@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Operations</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 5px;
+}
+
+select,
+input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type="submit"] {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+    </style>
+</head>
+<body>
+    <div class='container'>
+    <h2>Welcome to the update operation</h2>
+    <form action="/update_operation_detail", method="post">
+    <label for="text">Update</label>
+    <label for="table">Select Table:</label>
+            <select name="table" id="table">
+                {% for table in tables %}
+                <option value="{{table}}">{{ table }}</option>
+                {% endfor %}
+            </select>
+            
+    <label for="text">Set</label>
+    <input type="text" name = "set" id="set">
+    <label for="text">Where</label>
+    <input type="text" name="where" id="where">
+    <input type="submit" value="Submit">
+    </form>
+</div>
+</body>
+</html>
